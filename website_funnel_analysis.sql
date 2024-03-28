@@ -1,12 +1,15 @@
 -- Checking for the number of records, duplicates or inconsistencies and any missing values in each table
 
--- Home Page
+-- Displaying the first 5 records from the home_page_table to get a glimpse of the data
 
 select 
-	*
+	user_id,
+	page
 from 
 	home_page_table
 limit 5;
+
+-- Calculating the number of records, distinct users, and distinct pages
 
 select
 	count(*) as number_of_records,
@@ -15,6 +18,8 @@ select
 from
 	home_page_table;
 
+-- Counting the number of missing values for user_id and page columns
+
 select
 	count(user_id) as missing_user_ids,
 	count(page) as missing_page
@@ -23,13 +28,16 @@ from
 where
 	user_id is null or page is null;
 
--- Search Page
+-- -- Displaying the first 5 records from the search_page_table to get a glimpse of the data
 
 select 
-	*
+	user_id,
+	page
 from 
 	search_page_table
 limit 5;
+
+-- Calculating the number of records, distinct users, and distinct pages
 
 select
 	count(*) as number_of_records,
@@ -38,6 +46,8 @@ select
 from
 	search_page_table;
 
+-- Counting the number of missing values for user_id and page columns
+
 select
 	count(user_id) as missing_user_ids,
 	count(page) as missing_page
@@ -46,13 +56,16 @@ from
 where
 	user_id is null or page is null;
 
--- Payment Page
+-- Displaying the first 5 records from the payment_page_table to get a glimpse of the data
 
 select 
-	*
+	user_id,
+	page
 from 
 	payment_page_table
 limit 5;
+
+-- Calculating the number of records, distinct users, and distinct pages
 
 select
 	count(*) as number_of_records,
@@ -61,6 +74,8 @@ select
 from
 	payment_page_table;
 
+-- Counting the number of missing values for user_id and page columns
+
 select
 	count(user_id) as missing_user_ids,
 	count(page) as missing_page
@@ -69,13 +84,16 @@ from
 where
 	user_id is null or page is null;
 
--- Payment Confirmation Page
+-- Displaying the first 5 records from the payment_confirmation_table to get a glimpse of the data
 
 select 
-	*
+	user_id,
+	page
 from 
 	payment_confirmation_table
 limit 5;
+
+-- Calculating the number of records, distinct users, and distinct pages
 
 select
 	count(*) as number_of_records,
@@ -83,6 +101,8 @@ select
 	count(distinct page) as number_of_pages
 from
 	payment_confirmation_table;
+
+-- Counting the number of missing values for user_id and page columns
 
 select
 	count(user_id) as missing_user_ids,
@@ -92,13 +112,18 @@ from
 where
 	user_id is null or page is null;
 
--- User table 
+-- Displaying the first 5 records from the user_table to get a glimpse of the data
 
 select 
-	*
+	user_id,
+	date,
+	device,
+	sex
 from 
 	user_table
 limit 5;
+
+-- Calculating the number of records, distinct users, distinct devices and looking for inconsistencies in date and sex columns
 
 select
 	count(*) as number_of_records,
@@ -111,6 +136,8 @@ select
 from
 	user_table;
 
+-- Counting the number of missing values
+
 select
 	count(user_id) as missing_user_ids,
 	count(date) as missing_dates,
@@ -121,7 +148,7 @@ from
 where
 	user_id is null or date is null or device is null or sex is null;
 
--- Verifying the number of common users in the tables
+-- Ensuring that the number of users between the home_page_table and the user_table is consistent
 
 select 
 	count(*) as common_users_count
@@ -130,7 +157,7 @@ from
 	intersect
 	select user_id from user_table) as common_users;
 
--- UNION ALL of the page tables
+-- Combining all the page tables (home_page_table, search_page_table, payment_page_table, and payment_confirmation_table) into a single view using UNION ALL
 
 drop view if exists all_pages_view;
 
@@ -159,9 +186,12 @@ create view all_pages_view as
 	from
 		payment_confirmation_table;
 	
--- Pivot Table
+-- Creating a pivot table to summarize user engagements with different pages
 	
 drop view if exists page_landings_view;
+
+
+-- Creating a view named page_landings_view to store the pivot table results
 
 create view page_landings_view as
 	select 
@@ -183,9 +213,11 @@ from
 group by
 		user_id;
 		
--- JOIN for final dataset - as a view - that includes user details and pages visited by them 
+-- Creating a final dataset view that combines user details and pages visited by them
 	
 drop view if exists user_page_journey_view;
+
+-- Creating a view named user_page_journey_view to store the joined data of user details and page engagements
 
 create view user_page_journey_view as
 	select 
@@ -200,7 +232,7 @@ create view user_page_journey_view as
 from 
 		page_landings_view pv join user_table u on pv.user_id = u.user_id;
 	
--- Total users by Gender
+-- Calculating the total number of users by gender from the user_page_journey_view
 	
 select
 	sum(case when sex = 'Female' then 1 end) as number_of_female_users,
@@ -208,7 +240,7 @@ select
 from
 	user_page_journey_view;
 
--- Total users by Device
+-- Calculating the total number of users by device type from the user_page_journey_view
 	
 select
 	sum(case when device = 'Desktop' then 1 end) as number_of_desktop_users,
@@ -216,7 +248,7 @@ select
 from
 	user_page_journey_view;
 
--- Total users by Gender and Device
+-- Calculating the total number of users by gender and device type from the user_page_journey_view
 	
 select
 	sum(case when sex = 'Female' and device = 'Desktop' then 1 else 0 end) as female_desktop_users,
@@ -227,7 +259,9 @@ from
 	user_page_journey_view;
 
 
--- Descriptive Stats - Daily Landings on Home Page by the month
+-- Descriptive Stats for daily landings on home page by the month
+
+-- Defining a CTE to calculate the daily number of users landing on the home page by date
 
 with daily_users as (
 	select
@@ -239,6 +273,8 @@ with daily_users as (
 		date
 ),
 
+-- Adding details such as row numbers and total number of days with user engagement within each month
+
 details as (
 	select
 		signup_date,
@@ -248,6 +284,8 @@ details as (
 	from
 		daily_users
 ),
+
+-- Calculating quartiles (Q1, median, Q3) for each month's user engagement on the home page
 
 quartiles as (
 select
@@ -269,6 +307,8 @@ from
 	details
 )
 
+-- Computing descriptive statistics for daily landings on the home page by month
+
 select
 	extract(month from signup_date) as signup_month,
 	min(users) as minimum_users_landed,
@@ -283,7 +323,9 @@ from
 group by
 	extract(month from signup_date);
 
--- Descriptive Stats - Daily Landings on Search Page by the month
+-- Descriptive Stats for daily landings on search page by the month
+
+-- Defining a CTE to calculate the daily number of users landing on the search page by date
 
 with daily_users as (
 	select
@@ -295,6 +337,8 @@ with daily_users as (
 		date
 ),
 
+-- Adding details such as row numbers and total number of days with user engagement within each month
+
 details as (
 	select
 		signup_date,
@@ -304,6 +348,8 @@ details as (
 	from
 		daily_users
 ),
+
+-- Calculating quartiles (Q1, median, Q3) for each month's user engagement on the search page
 
 quartiles as (
 select
@@ -325,6 +371,8 @@ from
 	details
 )
 
+-- Computing descriptive statistics for daily landings on the search page by month
+
 select
 	extract(month from signup_date) as signup_month,
 	min(users) as minimum_users_landed,
@@ -339,7 +387,9 @@ from
 group by
 	extract(month from signup_date);
 
--- Descriptive Stats - Daily Landings on Payment Page by the month
+-- Descriptive Stats for daily landings on payment page by the month
+
+-- Defining a CTE to calculate the daily number of users landing on the payment page by date
 
 with daily_users as (
 	select
@@ -351,6 +401,8 @@ with daily_users as (
 		date
 ),
 
+-- Adding details such as row numbers and total number of days with user engagement within each month
+
 details as (
 	select
 		signup_date,
@@ -360,6 +412,8 @@ details as (
 	from
 		daily_users
 ),
+
+-- Calculating quartiles (Q1, median, Q3) for each month's user engagement on the payment page
 
 quartiles as (
 select
@@ -380,6 +434,8 @@ select
 from
 	details
 )
+
+-- Computing descriptive statistics for daily landings on the payment page by month
 
 select
 	extract(month from signup_date) as signup_month,
@@ -395,7 +451,9 @@ from
 group by
 	extract(month from signup_date);
 
--- Descriptive Stats - Daily Landings on Payment Confirmation Page by the month
+-- Descriptive Stats for daily landings on payment confirmation page by the month
+
+-- Defining a CTE to calculate the daily number of users landing on the payment confirmation page by date
 
 with daily_users as (
 	select
@@ -407,6 +465,8 @@ with daily_users as (
 		date
 ),
 
+-- Adding details such as row numbers and total number of days with user engagement within each month
+
 details as (
 	select
 		signup_date,
@@ -416,6 +476,8 @@ details as (
 	from
 		daily_users
 ),
+
+-- Calculating quartiles (Q1, median, Q3) for each month's user engagement on the payment confirmation page
 
 quartiles as (
 select
@@ -436,6 +498,8 @@ select
 from
 	details
 )
+
+-- Computing descriptive statistics for daily landings on the payment confirmation page by month
 
 select
 	extract(month from signup_date) as signup_month,
@@ -453,7 +517,7 @@ group by
 	
 -- Conversion Rates
 	
--- All users
+-- Calculating the total number of users who visited each page in the conversion funnel, followed by conversion rates between each stage of the funnel
 	
 with total_page_landings_cte as (
 	select
@@ -464,6 +528,7 @@ with total_page_landings_cte as (
 	from
 		user_page_journey_view
 )
+
 select
 	1 as funnel_stage,
 	'home -> search' as funnel_stage_name,
@@ -487,7 +552,7 @@ from
 order by
 	funnel_stage;
 		
--- By Gender
+-- Calculating the total number of users who visited each page in the conversion funnel, followed by conversion rates between each stage of the funnel, by gender/sex
 	
 with gender_total_page_landings_cte as (
 	select
@@ -552,7 +617,7 @@ from
 order by
 	funnel_stage;
 
--- By Device
+-- Calculating the total number of users who visited each page in the conversion funnel, followed by conversion rates between each stage of the funnel, by device type
 	
 with device_total_page_landings_cte as (
 	select
@@ -617,10 +682,7 @@ from
 order by
 	funnel_stage;
 
-
--- Conversion rate, per month, week and daily - then break it down by device, gender
-
--- Monthly Landings and Conversion Rate, all users
+-- Calculating monthly user landings on different pages and their corresponding conversion rates
 
 select 
 	extract(month from date) as signup_month,
@@ -636,7 +698,7 @@ from
 group by
 	extract(month from date);
 
--- Weekly Landings and Conversion Rate, all users 
+-- Calculating weekly user landings on different pages and their corresponding conversion rates
 
 select 
 	extract(week from date) as signup_week,
@@ -652,7 +714,7 @@ from
 group by
 	extract(week from date);
 
--- Daily Landings and Conversion Rate, all users
+-- Calculating daily user landings on different pages and their corresponding conversion rates
 
 select 
 	date as signup_date,
@@ -668,7 +730,7 @@ from
 group by
 	date;
 
--- Monthly Landings and Conversion Rate, by Gender
+-- Calculating monthly user landings on different pages and their corresponding conversion rates, by gender/sex
 
 select 
 	extract(month from date) as signup_month,
@@ -702,7 +764,7 @@ group by
 order by 
 	signup_month, sex;
 	
--- Weekly Landings and Conversion Rate, by Gender
+-- Calculating weekly user landings on different pages and their corresponding conversion rates, by gender/sex
 
 select 
 	extract(week from date) as signup_week,
@@ -736,7 +798,7 @@ group by
 order by 
 	signup_week, sex;
 	
--- Daily Landings and conversion Rate, by Gender 
+-- Calculating daily user landings on different pages and their corresponding conversion rates, by gender/sex
 
 select 
 	date as signup_date,
@@ -770,7 +832,7 @@ group by
 order by 
 	signup_date, sex;
 	
--- Monthly Landings and Conversion Rate, by Device
+-- Calculating monthly user landings on different pages and their corresponding conversion rates, by device type
 
 select 
 	extract(month from date) as signup_month,
@@ -804,7 +866,7 @@ group by
 order by 
 	signup_month, device;
 
--- Weekly Landings and Conversion Rate, by Device
+-- Calculating weekly user landings on different pages and their corresponding conversion rates, by device type
 
 select 
 	extract(week from date) as signup_week,
@@ -838,7 +900,7 @@ group by
 order by 
 	signup_week, device;
 	
--- Daily Landings and conversion Rate, by Device
+-- Calculating daily user landings on different pages and their corresponding conversion rates, by device type
 
 select 
 	date as signup_date,
@@ -872,7 +934,7 @@ group by
 order by 
 	signup_date, device;
 	
--- Daily Landings and conversion Rate, by Device and Gender
+-- Calculating daily user landings on different pages and their corresponding conversion rates, by gender/sex and device type
 
 select 
 	date as signup_date,
