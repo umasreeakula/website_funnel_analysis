@@ -1,4 +1,4 @@
-# Website Funnel Analysis
+# Website Funnel Analysis - Conversion Rate Optimisation (CRO)
 
 This dataset, available at [Kaggle](https://www.kaggle.com/datasets/aerodinamicc/ecommerce-website-funnel-analysis), contains user behaviour data from an e-commerce website with four pages: home, search, payment, and payment confirmation, tracking user interactions and conversion funnel progression.
 
