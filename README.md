@@ -209,23 +209,23 @@ Given that the device and sex columns contained multiple distinct values, I used
 ```
 select
 	device,
-	count(*) as occurences
+	count(*) as occurrences
 from
 	user_table
 group by
 	device
 order by
-	occurences desc;
+	occurrences desc;
 
 select
 	sex,
-	count(*) as occurences
+	count(*) as occurrences
 from
 	user_table
 group by
 	sex
 order by
-	occurences desc;
+	occurrences desc;
 
 -- Counting the number of missing values
 
@@ -254,7 +254,7 @@ from
 To unify the details of the users and the pages they've accessed,
  
 - I used the UNION ALL clause and combined the user ID and page details of all four (home, search, payment, and payment confirmation) tables into a single view called "all_pages_view". 
-- I created a new view called "page_landings_view" using the previously created "all_pages_view." This view summarises user engagements with different pages using a pivot table approach. Each page has a corresponding flag column indicating whether the user accessed that page (1) or not (0). The view aggregates this information for each user, grouping the data by user ID, making it convenient to analyse and understand user behaviour and interactions at a glance.
+- I created a new view called "page_landings_view" using the previously created "all_pages_view." This view summarises user engagements with different pages using a pivot table approach, using SUM() with CASE WHEN. Each page has a corresponding flag column indicating whether the user accessed that page (1) or not (0). The view aggregates this information for each user, grouping the data by user ID, making it convenient to analyse and understand user behaviour and interactions at a glance.
 - Next, I created a view called "user_page_journey_view" by joining the "page_landings_view" with the "user_table" on the user ID. I used CAST() to convert the date column from a string to a date type and use it as a date for further analysis.
 ```
 -- Combining all the page tables (home_page_table, search_page_table, payment_page_table, and payment_confirmation_table) into a single view using UNION ALL
@@ -338,7 +338,7 @@ I utilised CASE WHEN statements within SUM() functions to understand user demogr
 - For gender distribution,
 	I counted the number of female and male users separately.
 - For device distribution,
-	I counted the number of users on desktop and mobile devices individually.
+	I counted the number of users on desktop and mobile devices.
 - For a detailed breakdown by gender and device type,
 	I counted the number of users based on gender and device type, 	distinguishing between female and male users on desktop and mobile devices.
 ```
@@ -373,7 +373,7 @@ To get insights into the distribution of user signups over time and to verify if
 - I calculated the number of user signups on each engagement or activity date.
 - For each engagement month, I calculated the total number of signups, average signups per day, and minimum and maximum signups.
 	- The CTE daily_sign_ups computes the number of user signups for each engagement date.
-	- The main query then aggregates this data by month, calculating the total 	(SUM), average (AVG), minimum (MIN), and maximum (MAX) number of user signups for each month. In this query, I also utilised EXTRACT() to retrieve the month number from the engagement date. Then, I employed TO_CHAR() to convert this number into the month name for better readability. 	Additionally, I applied TO_DATE() within the ORDER BY clause to display chronologically ordered results by month.
+	- The main query then aggregates this data by month, calculating the total (SUM), average (AVG), minimum (MIN), and maximum (MAX) number of user signups for each month. In this query, I also utilised EXTRACT() to retrieve the month number from the engagement date. Then, I employed TO_CHAR() to convert this number into the month name for better readability. Additionally, I applied TO_DATE() within the ORDER BY clause to display chronologically ordered results by month.
 ```
 -- Counting the number of user signups on each engagement/activity date
 
@@ -414,7 +414,7 @@ order by
 For analysis and insights into the overall user journey in progressing towards the final conversion goal (making a purchase), I calculated conversion rates between each stage of the conversion funnel (home - search > search - payment > payment - confirmation of payment) using a nested common table expression (CTE).
 
 - The CTE total_page_landings_cte computes the total number of users who visited each page in the conversion funnel using the CASE WHEN() with the SUM() function.
-- In the CTE conversion_rates_cte, each subquery calculates the conversion rate by dividing the number of users who reached the subsequent stage by the number of users who reached the previous stage, multiplying by 100 for percentage representation, and rounding to two decimal places, along with a description of the funnel stage.
+- In the CTE conversion_rates_cte, each subquery calculates the conversion rate by dividing the number of users who reached the subsequent stage by the number of users who reached the previous stage, multiplying by 100 for percentage representation, and rounding to two decimal places, along with a description of the funnel stage in the funnel_stage and funnel_stage_name columns.
 - The main query then selects and presents the funnel stage, funnel stage name, and conversion rate from the common table expression conversion_rates_cte.
 ```
 -- Calculating the total number of users who visited each page in the conversion funnel, followed by conversion rates between each stage of the funnel
@@ -700,7 +700,7 @@ select
 from 
 	daily_landings_cte;
 ```
-I used the same logic and calculated the monthly, weekly and daily page landings and the conversion rates of the funnel stages for both the sex groups (male and female only) and the device types (desktop and mobile only).
+I used the same logic and calculated the monthly, weekly and daily page landings and the conversion rates of the funnel stages for both the sex groups (male and female) and the device types (desktop and mobile).
 ```
 -- Calculating monthly user landings on different pages and their corresponding conversion rates, by gender/sex
 
