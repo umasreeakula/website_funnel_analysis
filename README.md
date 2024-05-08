@@ -44,14 +44,26 @@ The e-commerce company aims to increase revenue by optimising the conversion rat
 - In the payment-to-confirmation stage, mobile users slightly outperformed desktop users.
 
 ### Recommendations:
+#### Immediate:
+
 -> A comprehensive website audit will help analyse the website's performance metrics to understand the issues encountered. Investigate events around March 1st. 
 - Have there been any updates or changes to how users access the website via mobile? 
 - Did these mobile-specific changes create friction or confusion for website users?
 - Did these affect the page load time or server response time? How about overall website speed?
   
+	- Conduct a thorough investigation into any technical issues that may have caused the noticeable drop in conversion rates around March 1st. Focus on page load time, server response time, and overall website performance.
+	- Collaborate with the IT team to identify and address any backend or frontend issues possibly affecting user experience and conversion rates.
+
 -> Watch session recordings, if possible, to understand how users failed to interact or progress around March 1st. Compare it with those who've progressed and interacted to understand differences in user journeys.
 - Review elements used to navigate from one page to another. Are the page elements confusing/distracting? Is any unusual behaviour indicating broken page elements? Are the CTAs (call-to-action) clear?
-  
+
+-> Optimising homepage layout and search functionality.
+- Optimise the homepage layout, content, and call-to-action buttons to encourage users to explore products through search. 
+- Improve the search functionality, product filtering options, and product recommendations to help users find desired items easily. 
+- Implement responsive design principles to ensure a seamless user experience across all devices: adjust user interface elements and navigation and check the flow, especially mobile devices, to streamline the process.
+
+#### Nice to Haves:
+
 -> Regularly compare the desktop and mobile versions of the website to ensure prominent elements are well placed.
 - How far down the page do the users scroll?
 - Where do desktop users click their mouse? Where do mobile users tap?
