@@ -60,7 +60,7 @@ The e-commerce company aims to increase revenue by optimising the conversion rat
 -> Optimising homepage layout and search functionality.
 - Optimise the homepage layout, content, and call-to-action buttons to encourage users to explore products through search. 
 - Improve the search functionality, product filtering options, and product recommendations to help users find desired items easily. 
-- Implement responsive design principles to ensure a seamless user experience across all devices: adjust user interface elements and navigation and check the flow, especially mobile devices, to streamline the process.
+- Implement responsive design principles to ensure a seamless user experience across all devices. Adjust user interface elements, navigation and checkout flow for mobile users to streamline the purchasing process.
 
 #### Nice to Haves:
 
