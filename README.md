@@ -57,9 +57,9 @@ The e-commerce company aims to increase revenue by optimising the conversion rat
 -> Watch session recordings, if possible, to understand how users failed to interact or progress around March 1st. Compare it with those who've progressed and interacted to understand differences in user journeys.
 - Review elements used to navigate from one page to another. Are the page elements confusing/distracting? Is any unusual behaviour indicating broken page elements? Are the CTAs (call-to-action) clear?
 
--> Optimising homepage layout and search functionality.
-- Optimise the homepage layout, content, and call-to-action buttons to encourage users to explore products through search. 
-- Improve the search functionality, product filtering options, and product recommendations to help users find desired items easily. 
+-> Mobile optimisation.
+- Optimise the homepage layout, content (accessible without excessive scrolling), and call-to-action buttons (visible and accessible) to encourage users to explore products through search. 
+- Improve the search functionality, product filtering options, auto-complete suggestions and product recommendations to help users find desired items easily. 
 - Implement responsive design principles to ensure a seamless user experience across all devices. Adjust user interface elements, navigation and checkout flow for mobile users to streamline the purchasing process.
 
 #### Nice to Haves:
