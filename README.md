@@ -82,7 +82,7 @@ from
 	home_page_table
 limit 100;
 ```
-Next, to understand how large the dataset is, I assessed the dataset's size by using COUNT(*) to count the number of rows. Additionally, I examined the number of distinct values in each column using the COUNT(DISTINCT column_name) function to understand the data distribution across columns.
+Next, to understand how large the table is, I assessed the dataset's size by using COUNT(*) to count the number of rows. Additionally, I examined the number of distinct values in each column using the COUNT(DISTINCT column_name) function to understand the data distribution across columns.
 ```
 select
 	count(*) as number_of_records,
