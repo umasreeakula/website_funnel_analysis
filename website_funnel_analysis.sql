@@ -552,8 +552,6 @@ with total_page_landings_cte as (
 		round(cast(payment_confirmation_users as numeric) / payment_page_users * 100, 2) as conversion_rate
 	from 
 		total_page_landings_cte
-	order by
-		funnel_stage
 	)
 	
 select 
@@ -561,7 +559,9 @@ select
 	funnel_stage_name,
 	conversion_rate
 from 
-	conversion_rates_cte;
+	conversion_rates_cte
+order by
+	funnel_stage;
 
 -- Result:
 
@@ -639,8 +639,7 @@ with gender_total_page_landings_cte as (
 		round(cast(male_payment_confirmation_users as numeric) / male_payment_page_users * 100, 2) as conversion_rate
 	from 
 		gender_total_page_landings_cte
-	order by
-		funnel_stage)
+)
 
 select
 	sex,
@@ -648,7 +647,9 @@ select
 	funnel_stage_name,
 	conversion_rate
 from 
-	gender_conversion_rates_cte;
+	gender_conversion_rates_cte
+order by
+	funnel_stage;
 
 -- Result:
 
@@ -729,15 +730,16 @@ with device_total_page_landings_cte as (
 		round(cast(mobile_payment_confirmation_users as numeric) / mobile_payment_page_users * 100, 2) as conversion_rate
 	from 
 		device_total_page_landings_cte
-	order by
-		funnel_stage)
+)
 select
 	device,
 	funnel_stage,
 	funnel_stage_name,
 	conversion_rate
 from
-	device_conversion_rates_cte;
+	device_conversion_rates_cte
+order by
+	funnel_stage;
 
 -- Result:
 
@@ -878,8 +880,6 @@ with gender_monthly_landings_cte as (
 		user_page_journey_view
 	group by
 		extract(month from date)
-	order by
-		signup_month, sex
 	)
 	
 select
@@ -889,7 +889,9 @@ select
 	round((1.0 * payment_page_users / search_page_users) * 100, 2) as conversion_rate_two,
 	round((1.0 * payment_confirmation_users / payment_page_users) * 100, 2) as conversion_rate_three
 from
-	gender_monthly_landings_cte;
+	gender_monthly_landings_cte
+order by
+	signup_month, sex;
 
 -- Result:
 
@@ -930,8 +932,6 @@ with gender_weekly_landings_cte as (
 		user_page_journey_view
 	group by
 		extract(week from date)
-	order by
-		signup_week, sex
 	)
 	
 select
@@ -941,7 +941,9 @@ select
 	round((1.0 * payment_page_users / search_page_users) * 100, 2) as conversion_rate_two,
 	round((1.0 * payment_confirmation_users / payment_page_users) * 100, 2) as conversion_rate_three
 from
-	gender_weekly_landings_cte;
+	gender_weekly_landings_cte
+order by
+	signup_week, sex;
 
 -- Partial Result:
 
@@ -981,8 +983,6 @@ with gender_daily_landings_cte as (
 		user_page_journey_view
 	group by
 		date
-	order by
-		signup_date, sex
 	)
 	
 select
@@ -992,7 +992,9 @@ select
 	round((1.0 * payment_page_users / search_page_users) * 100, 2) as conversion_rate_two,
 	round((1.0 * payment_confirmation_users / payment_page_users) * 100, 2) as conversion_rate_three
 from
-	gender_daily_landings_cte;
+	gender_daily_landings_cte
+order by
+	signup_date, sex;
 
 -- Partial Result:
 
@@ -1033,8 +1035,6 @@ with device_monthly_landings_cte as (
 		user_page_journey_view
 	group by
 		extract(month from date)
-	order by
-		signup_month, device
 	)
 	
 select
@@ -1044,7 +1044,9 @@ select
 	round((1.0 * payment_page_users / search_page_users) * 100, 2) as conversion_rate_two,
 	round((1.0 * payment_confirmation_users / payment_page_users) * 100, 2) as conversion_rate_three
 from
-	device_monthly_landings_cte;
+	device_monthly_landings_cte
+order by
+	signup_month, device;
 
 -- Result:
 
@@ -1085,8 +1087,6 @@ with device_weekly_landings_cte as (
 		user_page_journey_view
 	group by
 		extract(week from date)
-	order by
-		signup_week, device
 	)
 	
 select
@@ -1096,7 +1096,9 @@ select
 	round((1.0 * payment_page_users / search_page_users) * 100, 2) as conversion_rate_two,
 	round((1.0 * payment_confirmation_users / payment_page_users) * 100, 2) as conversion_rate_three
 from
-	device_weekly_landings_cte;
+	device_weekly_landings_cte
+order by
+	signup_week, device;
 
 -- Partial Result:
 
@@ -1137,8 +1139,6 @@ with device_daily_landings_cte as (
 		user_page_journey_view
 	group by
 		date
-	order by
-		signup_date, device
 	)
 	
 select
@@ -1148,7 +1148,9 @@ select
 	round((1.0 * payment_page_users / search_page_users) * 100, 2) as conversion_rate_two,
 	round((1.0 * payment_confirmation_users / payment_page_users) * 100, 2) as conversion_rate_three
 from
-	device_daily_landings_cte;
+	device_daily_landings_cte
+order by
+	signup_date, device;
 
 -- Partial Result:
 
@@ -1217,8 +1219,6 @@ with device_gender_daily_landings_cte as (
 		user_page_journey_view
 	group by
 		date
-	order by 
-		signup_date, device, sex
 	)
 	
 select
@@ -1229,7 +1229,9 @@ select
 	coalesce(round(1.0 * payment_page_users / nullif(search_page_users, 0) * 100, 2), 0) as conversion_rate_two,
 	coalesce(round(1.0 * payment_confirmation_users / nullif(payment_page_users, 0) * 100, 2), 0) as conversion_rate_three
 from
-	device_gender_daily_landings_cte;
+	device_gender_daily_landings_cte
+order by 
+	signup_date, device, sex;
 
 -- Partial Result:
 
