@@ -319,10 +319,10 @@ create view page_landings_view as
 		sum(case
 			when page = 'payment_confirmation_page' then 1 else 0
 			end) as payment_confirmation_flag
-from
-		all_pages_view
-group by
-		user_id;
+	from
+			all_pages_view
+	group by
+			user_id;
 		
 -- Creating a final dataset view that combines user details and pages visited by them
 	
@@ -340,7 +340,7 @@ create view user_page_journey_view as
 		cast(date as date),
 		device,
 		sex
-from 
+	from 
 		page_landings_view pv join user_table u on pv.user_id = u.user_id;
 ```
 The final view includes information about user engagements with various pages (home, search, payment, payment confirmation) and details such as the date of engagement, device used, and user demographics like sex, giving a comprehensive view of each user's information and journey across different pages.
@@ -466,8 +466,6 @@ with total_page_landings_cte as (
 		round(cast(payment_confirmation_users as numeric) / payment_page_users * 100, 2) as conversion_rate
 	from 
 		total_page_landings_cte
-	order by
-		funnel_stage
 	)
 	
 select 
@@ -475,7 +473,9 @@ select
 	funnel_stage_name,
 	conversion_rate
 from 
-	conversion_rates_cte;
+	conversion_rates_cte
+order by
+	funnel_stage;
 ```
 Similarly, I also analysed conversion rates in the conversion funnel based on sex and device type, calculating conversion rates between stages of the funnel for both female and male users, followed by conversion rates between each stage of the funnel for desktop and mobile users.
 ```
@@ -547,8 +547,7 @@ with gender_total_page_landings_cte as (
 		round(cast(male_payment_confirmation_users as numeric) / male_payment_page_users * 100, 2) as conversion_rate
 	from 
 		gender_total_page_landings_cte
-	order by
-		funnel_stage)
+)
 
 select
 	sex,
@@ -556,7 +555,9 @@ select
 	funnel_stage_name,
 	conversion_rate
 from 
-	gender_conversion_rates_cte;
+	gender_conversion_rates_cte
+order by
+	funnel_stage;
 
 -- Calculating the total number of users who visited each page in the conversion funnel, followed by conversion rates between each stage of the funnel, by device type
 	
@@ -626,15 +627,16 @@ with device_total_page_landings_cte as (
 		round(cast(mobile_payment_confirmation_users as numeric) / mobile_payment_page_users * 100, 2) as conversion_rate
 	from 
 		device_total_page_landings_cte
-	order by
-		funnel_stage)
+)
 select
 	device,
 	funnel_stage,
 	funnel_stage_name,
 	conversion_rate
 from
-	device_conversion_rates_cte;
+	device_conversion_rates_cte
+order by
+	funnel_stage;
 ```
 Next, I calculated the monthly user landings on different pages and their corresponding conversion rates:
 
@@ -740,8 +742,6 @@ with gender_monthly_landings_cte as (
 		user_page_journey_view
 	group by
 		extract(month from date)
-	order by
-		signup_month, sex
 	)
 	
 select
@@ -751,7 +751,9 @@ select
 	round((1.0 * payment_page_users / search_page_users) * 100, 2) as conversion_rate_two,
 	round((1.0 * payment_confirmation_users / payment_page_users) * 100, 2) as conversion_rate_three
 from
-	gender_monthly_landings_cte;
+	gender_monthly_landings_cte
+order by
+	signup_month, sex;
 	
 -- Calculating weekly user landings on different pages and their corresponding conversion rates, by gender/sex
 
@@ -779,8 +781,6 @@ with gender_weekly_landings_cte as (
 		user_page_journey_view
 	group by
 		extract(week from date)
-	order by
-		signup_week, sex
 	)
 	
 select
@@ -790,7 +790,9 @@ select
 	round((1.0 * payment_page_users / search_page_users) * 100, 2) as conversion_rate_two,
 	round((1.0 * payment_confirmation_users / payment_page_users) * 100, 2) as conversion_rate_three
 from
-	gender_weekly_landings_cte;
+	gender_weekly_landings_cte
+order by
+	signup_week, sex;
 
 -- Calculating daily user landings on different pages and their corresponding conversion rates, by gender/sex
 
@@ -818,8 +820,6 @@ with gender_daily_landings_cte as (
 		user_page_journey_view
 	group by
 		date
-	order by
-		signup_date, sex
 	)
 	
 select
@@ -829,7 +829,9 @@ select
 	round((1.0 * payment_page_users / search_page_users) * 100, 2) as conversion_rate_two,
 	round((1.0 * payment_confirmation_users / payment_page_users) * 100, 2) as conversion_rate_three
 from
-	gender_daily_landings_cte;
+	gender_daily_landings_cte
+order by
+	signup_date, sex;
 	
 -- Calculating monthly user landings on different pages and their corresponding conversion rates, by device type
 
@@ -857,8 +859,6 @@ with device_monthly_landings_cte as (
 		user_page_journey_view
 	group by
 		extract(month from date)
-	order by
-		signup_month, device
 	)
 	
 select
@@ -868,7 +868,9 @@ select
 	round((1.0 * payment_page_users / search_page_users) * 100, 2) as conversion_rate_two,
 	round((1.0 * payment_confirmation_users / payment_page_users) * 100, 2) as conversion_rate_three
 from
-	device_monthly_landings_cte;
+	device_monthly_landings_cte
+order by
+	signup_month, device;
 
 -- Calculating weekly user landings on different pages and their corresponding conversion rates, by device type
 
@@ -896,8 +898,6 @@ with device_weekly_landings_cte as (
 		user_page_journey_view
 	group by
 		extract(week from date)
-	order by
-		signup_week, device
 	)
 	
 select
@@ -907,7 +907,9 @@ select
 	round((1.0 * payment_page_users / search_page_users) * 100, 2) as conversion_rate_two,
 	round((1.0 * payment_confirmation_users / payment_page_users) * 100, 2) as conversion_rate_three
 from
-	device_weekly_landings_cte;
+	device_weekly_landings_cte
+order by
+	signup_week, device;
 	
 -- Calculating daily user landings on different pages and their corresponding conversion rates, by device type
 
@@ -935,8 +937,6 @@ with device_daily_landings_cte as (
 		user_page_journey_view
 	group by
 		date
-	order by
-		signup_date, device
 	)
 	
 select
@@ -946,7 +946,9 @@ select
 	round((1.0 * payment_page_users / search_page_users) * 100, 2) as conversion_rate_two,
 	round((1.0 * payment_confirmation_users / payment_page_users) * 100, 2) as conversion_rate_three
 from
-	device_daily_landings_cte;
+	device_daily_landings_cte
+order by
+	signup_date, device;
 ```
 Finally, to analyse conversion rates for different groups based on both sex and device type, I followed the previous approach. By considering combinations such as Female + Desktop, Female + Mobile, Male + Desktop, and Male + Mobile, I created a more detailed breakdown of user engagement and conversion rates across the funnel for the groups. 
 - I used the NULLIF() function to deal with the divide-by-zero error (sometimes, no users belonged to a particular combination of sex + device type) and COALESCE() to display the result as 0 in this case.
@@ -1005,8 +1007,6 @@ with device_gender_daily_landings_cte as (
 		user_page_journey_view
 	group by
 		date
-	order by 
-		signup_date, device, sex
 	)
 	
 select
@@ -1017,7 +1017,9 @@ select
 	coalesce(round(1.0 * payment_page_users / nullif(search_page_users, 0) * 100, 2), 0) as conversion_rate_two,
 	coalesce(round(1.0 * payment_confirmation_users / nullif(payment_page_users, 0) * 100, 2), 0) as conversion_rate_three
 from
-	device_gender_daily_landings_cte;
+	device_gender_daily_landings_cte
+order by 
+	signup_date, device, sex;
 ```
 
  #### Notes:
