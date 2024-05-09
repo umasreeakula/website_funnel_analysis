@@ -368,10 +368,10 @@ create view page_landings_view as
 		sum(case
 			when page = 'payment_confirmation_page' then 1 else 0
 			end) as payment_confirmation_flag
-from
-		all_pages_view
-group by
-		user_id;
+	from
+			all_pages_view
+	group by
+			user_id;
 
 -- Partial Result:
 
@@ -399,7 +399,7 @@ create view user_page_journey_view as
 		cast(date as date),
 		device,
 		sex
-from 
+	from 
 		page_landings_view pv join user_table u on pv.user_id = u.user_id;
 
 -- Partial Result:
