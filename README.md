@@ -10,6 +10,7 @@ I analysed the dataset using DBeaver, connected to a PostgreSQL database system.
 ## Business Scenario and Context
 
 The e-commerce company has observed consistent website traffic, but users fail to complete purchases, resulting in low conversion rates. Despite investing in marketing efforts to attract new users, the company struggles to capitalise on this traffic and convert it into sales. The company aims to increase revenue by optimising the conversion rate across its website's funnel. By identifying and addressing the bottlenecks to conversion, the company seeks to enhance the user experience and drive higher sales volume, particularly among new users.
+
 The e-commerce company has access to comprehensive data on user behaviour, including interactions with each website page, device type used for accessing the website, date of activity, and gender.
 
 ### Questions:
