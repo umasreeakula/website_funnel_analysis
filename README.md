@@ -61,7 +61,7 @@ The e-commerce company has access to comprehensive data on user behaviour, inclu
 -> Application and Website Optimisation.
 - Optimise the homepage layout, content (accessible without excessive scrolling), and call-to-action buttons (visible and accessible) to encourage mobile users to explore products through search. 
 - Improve the search functionality, product filtering options, auto-complete suggestions and product recommendations to help mobile users find desired items easily. 
-- Implement responsive design principles to ensure a seamless user experience across all devices. Adjust user interface elements, navigation and checkout flow for desktop users to streamline purchasing.
+- Implement responsive design principles to ensure a seamless user experience across all devices. Adjust user interface elements, and navigation and improve checkout and payment flow for desktop users to streamline purchasing.
 
 #### Nice to Haves:
 
