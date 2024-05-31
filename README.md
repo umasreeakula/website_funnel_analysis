@@ -5,7 +5,7 @@ This dataset, available at [Kaggle](https://www.kaggle.com/datasets/aerodinamicc
 
 There are five tables: a table for each page with the user ID and a flag indicating the user visited the page. The fifth table contains additional user information, including the device type used for accessing the website, the date of activity, and gender.
 
-I analysed the dataset using DBeaver, connected to a PostgreSQL database system. A Power BI report can be found [here](https://github.com/umasreeakula/website_funnel_analysis/blob/main/Website%20Conversion%20Funnel%20Analysis.pbix).
+I analysed the dataset using DBeaver, connected to a PostgreSQL database system. A Power BI report can be found [here](https://github.com/umasreeakula/website_funnel_analysis/blob/main/Conversion%20Funnel%20-%20Report.pdf).
 
 ## Business Scenario and Context
 
