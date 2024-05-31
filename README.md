@@ -52,7 +52,7 @@ The e-commerce company has access to comprehensive data on user behaviour, inclu
 - Did these mobile-specific changes create friction or confusion for users?
 - Did these affect the page load time or server response time? How about overall website speed?
   
-	- Conduct a thorough investigation into any technical issues that may have caused the noticeable drop in conversion rates around March 1st. Focus on page load time, server response time, and overall website performance.
+	- Conduct a thorough investigation into any technical issues that may have caused the noticeable drop in conversion rates around March 1st. Focus on payment processing issues (desktop and mobile), page load time, server response time, and overall website performance.
 	- Collaborate with the IT team to identify and address any backend or frontend issues possibly affecting user experience and conversion rates.
 
 -> Watch session recordings, if possible, to understand how users failed to interact or progress around March 1st. Compare it with those who've progressed and interacted to understand differences in user journeys.
