@@ -7,11 +7,23 @@ There are five tables: a table for each page with the user ID and a flag indicat
 
 I analysed the dataset using DBeaver, connected to a PostgreSQL database system. A Power BI report can be found [here](https://github.com/umasreeakula/website_funnel_analysis/blob/main/Conversion%20Funnel%20-%20Report.pdf).
 
+Data Limitations:
+- Page Load Times and Performance Metrics: There's no data on page load times, server response times, or overall website speed performance.
+- User Journey Tracking: Includes detailed data on user interactions across four key pages: home, search, payment, and payment confirmation, but not on interactions such as time spent on each section of a page, clicks on specific buttons, etc.
+
 ## Business Scenario and Context
 
-The e-commerce company has observed consistent website traffic, but users fail to complete purchases, resulting in low conversion rates. Despite investing in marketing efforts to attract new users, the company struggles to capitalise on this traffic and convert it into sales. The company aims to increase revenue by optimising the conversion rate across its website's funnel. By identifying and addressing the bottlenecks to conversion, the company seeks to enhance the user experience and drive higher sales volume, particularly among new users.
+The e-commerce company has observed consistent website traffic, but users fail to complete purchases, resulting in low conversion rates. Their website has changed its design and functionality to improve the user experience and conversion rates, including refining product pages with understandable information and visuals and optimising the checkout process.
+By identifying and addressing the bottlenecks to conversion, the company seeks to enhance the user experience and drive higher sales volume, particularly among new users.
 
-The e-commerce company has access to comprehensive data on user behaviour, including interactions with each website page, device type used for accessing the website, date of activity, and gender.
+#### Assumptions:
+- The company launched the improved website at the beginning of January.
+- The A/B testing indicated positive results.
+- There were no significant changes in marketing spend or strategy between January and April.
+- There were no serious updates or changes to the website’s backend systems or infrastructure around March 1st.
+- Any drop in e-commerce activity is not due to seasonal trends.
+- Competitors did not significantly alter their pricing or promotional strategies during this period.
+- The company uses behaviour analytics tools such as heatmaps and session recordings.
 
 ### Questions:
 1. What are the conversion rates for each funnel stage, and how do they vary across the different stages? (Home > Search, Search > Payment, Payment > Payment Confirmation)
@@ -47,42 +59,27 @@ The e-commerce company has access to comprehensive data on user behaviour, inclu
 ### Recommendations:
 #### Immediate:
 
--> A comprehensive website audit will help analyse the website's performance metrics to understand the issues encountered. Investigate events around March 1st. 
-- Have there been any updates or changes to how users access the website via mobile? 
-- Did these mobile-specific changes create friction or confusion for users?
-- Did these affect the page load time or server response time? How about overall website speed?
-  
-	- Conduct a thorough investigation into any technical issues that may have caused the noticeable drop in conversion rates around March 1st. Focus on payment processing issues (desktop and mobile), page load time, server response time, and overall website performance.
-	- Collaborate with the IT team to identify and address any backend or frontend issues possibly affecting user experience and conversion rates.
+-> Conduct a thorough investigation into any technical issues that may have caused the noticeable drop in conversion rates around March 1st. Focus on payment processing issues (desktop and mobile), page load time, server response time, and overall website performance.
 
--> Watch session recordings, if possible, to understand how users failed to interact or progress around March 1st. Compare it with those who've progressed and interacted to understand differences in user journeys.
-- Review elements used to navigate from one page to another. Are the page elements confusing/distracting? Is any unusual behaviour indicating broken page elements? Are the CTAs (call-to-action) clear?
+ -> Watch session recordings to understand how users failed to interact or progress around March 1st. Compare it with those who've progressed and interacted to understand differences in user journeys. 
+- Review elements used to navigate from one page to another. Are the page elements confusing/distracting? Is there any unusual behaviour indicating broken page elements? Are the CTAs (call-to-action) clear? 
+- Conduct A/B testing for different navigation designs to see which design performs better for conversion.
 
--> Application and Website Optimisation.
-- Optimise the homepage layout, content (accessible without excessive scrolling), and call-to-action buttons (visible and accessible) to encourage mobile users to explore products through search. 
-- Improve the search functionality, product filtering options, auto-complete suggestions and product recommendations to help mobile users find desired items easily. 
-- Implement responsive design principles to ensure a seamless user experience across all devices. Adjust user interface elements, and navigation and improve checkout and payment flow for desktop users to streamline purchasing.
+-> Investigate the payment process.
+- Conduct user surveys or usability testing specifically focused on the payment process to identify pain points and areas for improvement.
+- Implement A/B testing to compare different payment processes and identify the most effective approach for improving conversion rates.
 
 #### Nice to Haves:
 
--> Regularly compare the desktop and mobile versions of the website to ensure prominent elements are well placed.
-- How far down the page do the users scroll?
-- Where do desktop users click their mouse? Where do mobile users tap?
-- Time spent viewing.
-
 -> Setting up automated weekly monitoring to track conversion rates and other KPIs can help analyse and identify dips or spikes regularly.
 
--> Gather feedback from users frequently to gather insights.
-- Include on-page surveys, feedback forms and open-ended feedback to perceive users' understanding of the website.
-- Conducting usability testing can help understand the issues encountered, pain points and solutions users would like to see.
+-> Gather feedback at key funnel stages from users frequently to gather insights. 
+- Include on-page surveys, feedback forms, and open-ended feedback to assess users' understanding of the website. 
+- Conducting usability testing can help understand the issues encountered, pain points, and solutions users would like to see. 
 
--> Send out automated and personalised email reminders for users who have abandoned their shopping carts.
-- Offer incentives or discounts to encourage purchase completion.
+-> Send out automated and personalised email reminders for users who have abandoned their shopping carts. 
+- Offer incentives or discounts to encourage purchase completion. 
 - Review email campaigns and iterate on the content based on engagement and conversion rates.
-
--> Clear communication and messaging of the value proposition and unique selling proposition can help visitors and users tolerate inconsistencies and imperfections in the user experience.
-- Inclusion of customer testimonials and reviews can help build trust.
-- Conducting market research and understanding market trends can help refine and evolve the value proposition to meet customers' needs.
 
 ### SQL:
 Find the SQL Script [here](https://github.com/umasreeakula/website_funnel_analysis/blob/main/website_funnel_analysis.sql).
